@@ -6,7 +6,7 @@ The wake word will be identified from features extracted from real-time audio sa
 
 
 Approximate Steps:
-- Extract features from google's command audio dataset: File is  
+- Extract features from google's command audio dataset.  
 - Train tensorflow model using features for wake word.
 - Convert tf model as serialized model using tf-lite
 - Load tf-lite model on raspbery pi zero for inference.
@@ -14,6 +14,10 @@ Approximate Steps:
 - Evaluate mic audio and infer wake word.
 - When wake word has been identified, light up an LED on a breadboard. Eventually will be used to begin recording text and convert the audio to text.
 - Example:  Identify the phrase 'set timer for 5 minutes'...begins a countdown for 5 minutes and then sounds an alarm via the speaker attached to the Pi Zero.
+  
+## Training Data
+
+Google Command Dataset: [Download](https://storage.cloud.google.com/download.tensorflow.org/data/speech_commands_v0.02.tar.gz)  
 
 
 
