@@ -15,9 +15,19 @@ Approximate Steps:
 - When wake word has been identified, light up an LED on a breadboard. Eventually will be used to begin recording text and convert the audio to text.
 - Example:  Identify the phrase 'set timer for 5 minutes'...begins a countdown for 5 minutes and then sounds an alarm via the speaker attached to the Pi Zero.
   
+## Hardware and Environment
+
+My initial plan was to train a model using tensorflow on my mid-2010 MacBook Pro (16GB). I intended to use tensorflow 2.1 or greater as it had keras baked in and Google's reference docs utilized this version in their code. Immediatelly there was an issue loading tensorflow 2.1 or greater as a result of the laptop Intel chip not utilizing AVX. As there was no getting around this requirement I needed to shift development to a Colab notebook...because it's free. I could have easily spun up a machine on Google Cloud Compute...but that's not free and I've never tried developing on Colab.
+  
+
 ## Training Data
 
-Google Command Dataset: [Download](https://storage.cloud.google.com/download.tensorflow.org/data/speech_commands_v0.02.tar.gz)  
+Google Command Dataset: [The docs](https://github.com/tensorflow/docs/blob/master/site/en/r1/tutorials/sequences/audio_recognition.md)  
+[Download directly](https://storage.cloud.google.com/download.tensorflow.org/data/speech_commands_v0.02.tar.gz)    
+
+## Feature Extraction
+
+Ref docs for Mel Frequency Cepstral Coefficient: [docs](http://practicalcryptography.com/miscellaneous/machine-learning/guide-mel-frequency-cepstral-coefficients-mfccs/)  
 
 
 
