@@ -20,6 +20,46 @@ Approximate Steps:
 My initial plan was to train a model using tensorflow on my mid-2010 MacBook Pro (16GB). I intended to use tensorflow 2.1 or greater as it had keras baked in and Google's reference docs utilized this version in their code. Immediatelly there was an issue loading tensorflow 2.1 or greater as a result of the laptop Intel chip not utilizing AVX. As there was no getting around this requirement I needed to shift development to a Colab notebook...because it's free. I could have easily spun up a machine on Google Cloud Compute...but that's not free and I've never tried developing on Colab.
   
 
+### Seeed Studios 2-mic respeaker
+hat wiki:  https://wiki.seeedstudio.com/ReSpeaker_2_Mics_Pi_HAT/   
+Since a raspberry pi zero lacks audio input and output capabilities (aside from HDMI), I needed to find a method to get our wake words to our model for inference. The 2-mic board is capable for both audio input and audio output. The manufacturer describes it as:  
+ 
+_The 2-mic respeaker hat contains 2 mReSpeaker 2-Mics Pi HAT is a dual-microphone expansion board for Raspberry Pi designed for AI and voice applications._   
+
+The board fits GPIO pins on:  
+- raspberrry pi board (including zero)  
+- NPi i.MX6ULL Dev Board Linux SBC  
+- ODYSSEY - STM32MP157C
+- Nvidia Jetson Nano Series
+
+### Installation of 2-mic respeaker on Raspberry Pi Zero W
+These instructions assume you are running RaspberryOS Buster  
+
+__Step 1__  
+1. Update/upgrade the Pi Zero.  
+`sudo apt-get update`  
+`sudo apt-get upgrade`
+2. Clone the seeed-voicecard repo:   
+`git clone https://github.com/respeaker/seeed-voicecard.git`   
+3. Run the _install.sh_ bash script in the new repo  
+`sudo seeed-voicecard/install.sh`  
+4. Reboot  
+`sudo reboot`   
+
+__Step 2__  
+1. Verify the card has been installed and the playback device is detected by the Pi. Verify the output of this command matches the [wiki](https://wiki.seeedstudio.com/ReSpeaker_2_Mics_Pi_HAT/). 
+`aplay -l`  
+2. Similarly, verify the audio input device is also listed (same wiki).
+`arecord -l`  
+3. Test playback on the speaker. Can use headphones or plug a speaker to into the 2-pin JST PH (2.0mm pitch).  
+Warning!! Do not use the following command with speakers or your eardrums will burst!!  
+With headphones only: `arecord -f cd -Dhw:1 | aplay -Dhw:1`   
+With speaker:   
+- Download _piano2.wav_ from this repo and copy to the Pi Zero. I use scp to drop in the Pi's home folder:  e.g.  `scp piano2.wav pi@xxx.xxx.x.xxx:~`   
+- Play the tune using the speaker attached to seeed-studio card:  `aplay -Dhw:1 -d 10 piano2.wav`   
+https://www.systutorials.com/docs/linux/man/1-speaker-test/  
+
+
 ## Training Data
 
 Google Command Dataset: [The docs](https://github.com/tensorflow/docs/blob/master/site/en/r1/tutorials/sequences/audio_recognition.md)  
