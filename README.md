@@ -47,17 +47,20 @@ __Step 1__
 `sudo reboot`   
 
 __Step 2__  
-1. Verify the card has been installed and the playback device is detected by the Pi. Verify the output of this command matches the [wiki](https://wiki.seeedstudio.com/ReSpeaker_2_Mics_Pi_HAT/). 
+1. Verify the card has been installed and the playback device is detected by the Pi. Verify the output of this command matches the [wiki](https://wiki.seeedstudio.com/ReSpeaker_2_Mics_Pi_HAT/).   
 `aplay -l`  
-2. Similarly, verify the audio input device is also listed (same wiki).
+2. Similarly, verify the audio input device is also listed (same wiki).   
 `arecord -l`  
-3. Test playback on the speaker. Can use headphones or plug a speaker to into the 2-pin JST PH (2.0mm pitch).  
+3. Test playback on the speaker. Can use headphones or plug a speaker to into the 2-pin JST PH (2.0mm pitch) connector.  I've written two methods to play the sounds back, the first requires headphones. This method uses the microphones on the card to record a few seconds of sound and then plays that sound back on the headphones, in a record/play loop. If you run this comand with a speaker attached you will encounter a horribly loud shreeking sound due to the feedback between speaker and mics! The 'speaker' method requires testing the speakers separately, first play back of a wav file in the home directory followed by a separate mic input.   
 Warning!! Do not use the following command with speakers or your eardrums will burst!!  
-With headphones only: `arecord -f cd -Dhw:1 | aplay -Dhw:1`   
+Headphones Only (_Ctrl+C to exit):  
+`arecord -f cd -Dhw:1 | aplay -Dhw:1`   
 With speaker:   
-- Download _piano2.wav_ from this repo and copy to the Pi Zero. I use scp to drop in the Pi's home folder:  e.g.  `scp piano2.wav pi@xxx.xxx.x.xxx:~`   
-- Play the tune using the speaker attached to seeed-studio card:  `aplay -Dhw:1 -d 10 piano2.wav`   
-https://www.systutorials.com/docs/linux/man/1-speaker-test/  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp - Download _piano2.wav_ from this repo and copy to the Pi Zero. I use scp to drop in the Pi's home folder,  e.g.: 
+`scp piano2.wav pi@xxx.xxx.x.xxx:~`   
+    * Play the tune using the speaker attached to seeed-studio card (_Ctrl+C_ to exit):   
+`aplay -Dhw:1 -d 10 piano2.wav`   
+[Reference on playing tunes from command line in linux.](https://www.systutorials.com/docs/linux/man/1-speaker-test/)  
 
 
 ## Training Data
