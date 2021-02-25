@@ -56,7 +56,7 @@ Warning!! Do not use the following command with speakers or your eardrums will b
 - Headphones Only (_Ctrl+C to exit):  
 `arecord -f cd -Dhw:1 | aplay -Dhw:1`   
 - With speaker:   
-    * Download _piano2.wav_ from this repo and copy to the Pi Zero. I use scp to drop in the Pi's home folder,  e.g.: 
+    * Download _piano2.wav_ from this repo and copy to the Pi Zero. I use scp to drop in the Pi's home folder,  e.g.:  
 `scp piano2.wav pi@xxx.xxx.x.xxx:~`   
     * Play the tune using the speaker attached to seeed-studio card (_Ctrl+C_ to exit):   
 `aplay -Dhw:1 -d 10 piano2.wav`   
