@@ -53,10 +53,10 @@ __Step 2__
 `arecord -l`  
 3. Test playback on the speaker. Can use headphones or plug a speaker to into the 2-pin JST PH (2.0mm pitch) connector.  I've written two methods to play the sounds back, the first requires headphones. This method uses the microphones on the card to record a few seconds of sound and then plays that sound back on the headphones, in a record/play loop. If you run this comand with a speaker attached you will encounter a horribly loud shreeking sound due to the feedback between speaker and mics! The 'speaker' method requires testing the speakers separately, first play back of a wav file in the home directory followed by a separate mic input.   
 Warning!! Do not use the following command with speakers or your eardrums will burst!!  
-Headphones Only (_Ctrl+C to exit):  
+- Headphones Only (_Ctrl+C to exit):  
 `arecord -f cd -Dhw:1 | aplay -Dhw:1`   
-With speaker:   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp - Download _piano2.wav_ from this repo and copy to the Pi Zero. I use scp to drop in the Pi's home folder,  e.g.: 
+- With speaker:   
+    * Download _piano2.wav_ from this repo and copy to the Pi Zero. I use scp to drop in the Pi's home folder,  e.g.: 
 `scp piano2.wav pi@xxx.xxx.x.xxx:~`   
     * Play the tune using the speaker attached to seeed-studio card (_Ctrl+C_ to exit):   
 `aplay -Dhw:1 -d 10 piano2.wav`   
