@@ -125,6 +125,11 @@ compile using build_rpi_lib.sh
 Try this version and if does not work then try version 2.  
 (The following statement does not work.)   
 `./tensorflow/lite/tools/make/build_rpi_lib.sh`  
+
+Try this statement:  
+`PATH=../rpi_tools/arm-bcm2708/arm-rpi-4.9.3-linux-gnueabihf/bin:$PATH \
+  ./tensorflow/lite/tools/make/build_rpi_lib.sh TARGET_ARCH=armv6`  
+
  
 The above statement does not work - the installer is referencing '-DTFLITE_WITHOUT_XNNPACK -march=armv7-a' and similar statements like '/home/pi/tensorflow_src/tensorflow/lite/tools/make/gen/rpi_armv7l' which appears to be arm v7, whereas the Pi Zero is arm v6.  
   
