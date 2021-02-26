@@ -114,36 +114,38 @@ Ref docs for Mel Frequency Cepstral Coefficient: [docs](http://practicalcryptogr
 ## Adding TensorFlow Lite to Pi Zero
 To add tensorflow lite to the Pi Zero, it must be compiled natively on the Zero using CMake. I tried the instructions [here](https://www.tensorflow.org/lite/guide/build_rpi#compile_natively_on_raspberry_pi) without success.  There are two methods to install TF Lite. Both are provided by separate TF lite documents but the first method did not work on my Pi Zero but I was hopeful it would.   
   
-  * __Perform this for both methods__ 
+  * __Perform this for both methods__   
 From Google: [ref](https://www.tensorflow.org/lite/guide/build_rpi#compile_natively_on_raspberry_pi)  
-(works) `sudo apt-get install build-essential`  
-(works, takes very long time) `git clone https://github.com/tensorflow/tensorflow.git tensorflow_src`    
-(works) `cd tensorflow_src && ./tensorflow/lite/tools/make/download_dependencies.sh`  
+`sudo apt-get install build-essential`  
+`git clone https://github.com/tensorflow/tensorflow.git tensorflow_src`    
+`cd tensorflow_src && ./tensorflow/lite/tools/make/download_dependencies.sh`  
 
-  * __Method 1:__ compile using build_rpi_lib.sh  
-Try this version and if does not work then try version 2 
-(does not work, takes long time) `./tensorflow/lite/tools/make/build_rpi_lib.sh`   
+  * __Method 1:__   
+compile using build_rpi_lib.sh  
+Try this version and if does not work then try version 2.  
+(The following statement does not work.)   
+`./tensorflow/lite/tools/make/build_rpi_lib.sh`  
+ 
 The above statement does not work - the installer is referencing '-DTFLITE_WITHOUT_XNNPACK -march=armv7-a' and similar statements like '/home/pi/tensorflow_src/tensorflow/lite/tools/make/gen/rpi_armv7l' which appears to be arm v7, whereas the Pi Zero is arm v6.  
   
-
-  * __Method 2:__ 
+  * __Method 2:__   
 From Google: [ref](https://www.tensorflow.org/lite/guide/build_cmake_arm)
 `curl -L https://github.com/rvagg/rpi-newer-crosstools/archive/eb68350c5c8ec1663b7fe52c742ac4271e3217c5.tar.gz -o rpi-toolchain.tar.gz
 `tar xzf rpi-toolchain.tar.gz -C ${HOME}/toolchains`  
 `mv ${HOME}/toolchains/rpi-newer-crosstools-eb68350c5c8ec1663b7fe52c742ac4271e3217c5 ${HOME}/toolchains/arm-rpi-linux-gnueabihf
 
-`ARMCC_PREFIX=${HOME}/toolchains/arm-rpi-linux-gnueabihf/x64-gcc-6.5.0/arm-rpi-linux-gnueabihf/bin/arm-rpi-linux-gnueabihf-`  
-`ARMCC_FLAGS="-march=armv6 -mfpu=vfp -funsafe-math-optimizations"`  
-(Following does not work. Requires CMake 3.16) 
- `cmake -DCMAKE_C_COMPILER=${ARMCC_PREFIX}gcc \  
-  -DCMAKE_CXX_COMPILER=${ARMCC_PREFIX}g++ \  
-  -DCMAKE_C_FLAGS="${ARMCC_FLAGS}" \  
-  -DCMAKE_CXX_FLAGS="${ARMCC_FLAGS}" \  
-  -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \  
-  -DCMAKE_SYSTEM_NAME=Linux \  
-  -DCMAKE_SYSTEM_PROCESSOR=armv6 \  
-  -DTFLITE_ENABLE_XNNPACK=OFF \  
-  ../tensorflow/lite/`  
+`ARMCC_PREFIX=${HOME}/toolchains/arm-rpi-linux-gnueabihf/x64-gcc-6.5.0/arm-rpi-linux-gnueabihf/bin/arm-rpi-linux-gnueabihf-`   
+`ARMCC_FLAGS="-march=armv6 -mfpu=vfp -funsafe-math-optimizations"`   
+(The following does not work. Requires CMake 3.16)  
+`cmake -DCMAKE_C_COMPILER=${ARMCC_PREFIX}gcc \`  
+`  -DCMAKE_CXX_COMPILER=${ARMCC_PREFIX}g++ \`  
+`  -DCMAKE_C_FLAGS="${ARMCC_FLAGS}" \`   
+`  -DCMAKE_CXX_FLAGS="${ARMCC_FLAGS}" \`  
+`  -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \`  
+`  -DCMAKE_SYSTEM_NAME=Linux \`  
+`  -DCMAKE_SYSTEM_PROCESSOR=armv6 \`  
+`  -DTFLITE_ENABLE_XNNPACK=OFF \`   
+`  ../tensorflow/lite/`  
 
 Method 2 will not work because the code requires CMake version 3.16 whereas the 'proper' CMake version for RPi OS Buster is 3.13. 
 
