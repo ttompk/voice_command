@@ -111,16 +111,22 @@ Ref docs for Mel Frequency Cepstral Coefficient: [docs](http://practicalcryptogr
 
  
 # Tensorflow Lite 
-## Adding TensorFlow Lite to Pi Zero
+## Installing TensorFlow Lite to Pi Zero
 To add tensorflow lite to the Pi Zero, it must be compiled natively on the Zero using CMake. I tried the instructions [here](https://www.tensorflow.org/lite/guide/build_rpi#compile_natively_on_raspberry_pi) without success.  There are two methods to install TF Lite. Both are provided by separate TF lite documents but the first method did not work on my Pi Zero but I was hopeful it would.   
+
+  * __Method that works!__
+The code referenced [here](https://github.com/cloudwiser/TensorFlowLiteRPIZero) works for installing tensoflow on the Pi Zero. There are typos but besides the './minimal <insert_model_name>.tflite' command the code works.   
+1. clone the referenced repo to local machine.  
+2. follow the code for the Pi Zero and copying files to the Pi.
+3. Verify it works by running inference on a test image, aka 'label_image' example. I could not understand how to run the 'minimal' model, so I skipped it.    
   
-  * __Perform this for both methods__   
+  * __Perform this for both methods below: NO NEED TO DO THIS__   
 From Google: [ref](https://www.tensorflow.org/lite/guide/build_rpi#compile_natively_on_raspberry_pi)  
 `sudo apt-get install build-essential`  
 `git clone https://github.com/tensorflow/tensorflow.git tensorflow_src`    
 `cd tensorflow_src && ./tensorflow/lite/tools/make/download_dependencies.sh`  
 
-  * __Method 1:__   
+  * __Method 1: DOES NOT WORK__   
 compile using build_rpi_lib.sh  
 Try this version and if does not work then try version 2.  
 (The following statement does not work.)   
@@ -133,7 +139,7 @@ Try this statement:
  
 The above statement does not work - the installer is referencing '-DTFLITE_WITHOUT_XNNPACK -march=armv7-a' and similar statements like '/home/pi/tensorflow_src/tensorflow/lite/tools/make/gen/rpi_armv7l' which appears to be arm v7, whereas the Pi Zero is arm v6.  
   
-  * __Method 2:__   
+  * __Method 2: DOES NOT WORK__   
 From Google: [ref](https://www.tensorflow.org/lite/guide/build_cmake_arm)
 `curl -L https://github.com/rvagg/rpi-newer-crosstools/archive/eb68350c5c8ec1663b7fe52c742ac4271e3217c5.tar.gz -o rpi-toolchain.tar.gz
 `tar xzf rpi-toolchain.tar.gz -C ${HOME}/toolchains`  
@@ -154,7 +160,7 @@ From Google: [ref](https://www.tensorflow.org/lite/guide/build_cmake_arm)
 
 Method 2 will not work because the code requires CMake version 3.16 whereas the 'proper' CMake version for RPi OS Buster is 3.13. 
 
-## Installing CMake v3.16.1
+## Installing CMake v3.16.1 - DOES NOT WORK
 Raspberry Pi OS Buster comes with 3.13 but apt-get upgrade will not update to 3.16. In order to upgrade so you must do this:   
 
 1. CMake requires OpenSSL and cannot find it unless you run the following:  
@@ -179,10 +185,14 @@ Raspberry Pi OS Buster comes with 3.13 but apt-get upgrade will not update to 3.
 /home/pi/temp/cmake-3.16.1
 
   
-Another reference
+## Running Inference on TF Lite
+This reference is a good starting point:  
+https://www.tensorflow.org/lite/guide/inference
 
-`sudo apt-get install build-essential`  
-`git clone https://github.com/tensorflow/tensorflow.git tensorflow_src`  
-`cd tensorflow_src && ./tensorflow/lite/tools/make/download_dependencies.sh`  
-  
+1. Train model on TF (colab,etc)  
+2. Convert model to .tflite model  
+3. load model on Pi Zero
+4. Transform data  
+5. Run inference  
+6. Interpret output  
 
