@@ -196,3 +196,6 @@ https://www.tensorflow.org/lite/guide/inference
 5. Run inference  
 6. Interpret output  
 
+The file 'label_image.py' in this repo is an example of how to perform sSteps 3-6 above.  Requires there be metadata associated with the model or creating the model data prior to transforming data as shown in the example.  
+
+ 
