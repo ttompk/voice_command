@@ -91,10 +91,27 @@ If the playback is faint or too loud, don't worry. We can adjust it using the bu
 `alsamixer`  
 Press F6 to select the 'seeed-voicecard' sound card.  There are a ton of options the move around...but I'm not sure what they do...perhaps I'll look into it later to fine tune the input/output. 
 
-5. There is a driver for the chip for the included LED but I'm leaving them alone for now.  
+5. There is a driver for the chip for the included LED.  This code was provided:  
+`sudo pip install spidev`  
+`cd ~/`  
+`git clone https://github.com/respeaker/mic_hat.git`  
+`cd mic_hat`  
+`python pixels.py`   
+
+LEDs worked fine running the _pixel.py_ file.  
+
+
 
 6. User Button:  the on-board user button is connected to GPIO17.  
 see sample code here to test button:  [ref](https://wiki.seeedstudio.com/ReSpeaker_2_Mics_Pi_HAT/)  
+
+
+
+7. Install pyaudio:  
+Pyausio install failed. I was missing the app 'portaudio' on the pi zero.   I was able to install it using the following:  
+`sudo apt-get install portaudio19-dev`  
+`pip install pyaudio`  
+
 
 
 
